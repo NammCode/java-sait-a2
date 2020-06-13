@@ -1,10 +1,11 @@
 package sait.bms.managers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -15,26 +16,45 @@ import sait.bms.problemdomain.CookBook;
 import sait.bms.problemdomain.PaperBack;
 import sait.bms.problemdomain.Periodical;
 
+/**
+ * This class is management all of method 
+ * @author Nam Khanh Nguyen
+ * @version 1.0, May 11, 2020
+ */
 public class BookManagementSystem {
 
+	//Constant, address of file
 	public static final String FILE_PATH = "res\\books.txt";
 
 	Scanner keyboard;
 
+	/**
+	 * This arrayList stores all of the books object
+	 */
 	private ArrayList<Book> books;
 
-	public BookManagementSystem() throws FileNotFoundException {
+	/**
+	 * This constructor create a new Scanner keyboard, and new Arraylist book
+	 * After that, it call method loadBookList()
+	 * @throws IOException 
+	 */
+	public BookManagementSystem() throws IOException {
 		keyboard = new Scanner(System.in);
 		books = new ArrayList<>();
 		loadBookList();
 	}
 
-	private void loadBookList() throws FileNotFoundException {
+	/**
+	 * This method read the text file and get the object  
+	 * Add object into arrayList
+	 * @throws IOException 
+	 */
+	private void loadBookList() throws IOException {
 		File file = new File(FILE_PATH).getAbsoluteFile();
-		Scanner inFile = new Scanner(file);
-		while (inFile.hasNext()) {
-			String curline = inFile.nextLine();
-			String[] splittedLine = curline.split(";");
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line = reader.readLine();
+		while (line != null) {
+			String[] splittedLine = line.split(";");
 
 			long isbn = Long.parseLong(splittedLine[0]);
 			long lastDigitIsbn = isbn % 10;
@@ -57,11 +77,16 @@ public class BookManagementSystem {
 						Integer.parseInt(splittedLine[3]), splittedLine[4], splittedLine[5].charAt(0));
 				books.add(tmpBook);
 			}
-
+			line = reader.readLine();
 		}
-		inFile.close();
+		reader.close();
 	}
 
+	/**
+	 * This method display menu for customers
+	 * 
+	 * @throws IOException
+	 */
 	public void displayMenu() throws IOException {
 		int option = -1;
 		while (option != 5) {
@@ -102,6 +127,10 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method for user checkout book which match isbn
+	 * after that, count the total book inside 
+	 */
 	public void checkoutBook() {
 		boolean notMatch = true;
 		System.out.print("Enter ISBN of book: ");
@@ -124,6 +153,9 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method find Book by title, and display to user
+	 */
 	public void findBookByTitle() {
 		Boolean notMatching = true;
 		String title, titleSearch;
@@ -142,6 +174,9 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method find book by Type
+	 */
 	public void displayBookByType() {
 
 		System.out.println("#   Type");
@@ -163,6 +198,9 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method find book by Format
+	 */
 	public void findBookByFormat() {
 		String userOption;
 		Boolean notMatching = true;
@@ -187,6 +225,9 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method find book by diet
+	 */
 	public void findBookByDiet() {
 		String userOption;
 		Boolean notMatching = true;
@@ -212,6 +253,9 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method find book by genre
+	 */
 	public void findBookByGenre() {
 		String userOption;
 		Boolean notMatching = true;
@@ -237,6 +281,9 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method find book by Frequency
+	 */
 	public void findBookByFrequency() {
 		String userOption;
 		Boolean notMatching = true;
@@ -262,6 +309,10 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method shuffle the array
+	 * Display the number of book user want
+	 */
 	public void randomBookList() {
 		System.out.print("Enter number of books: ");
 		int numberRandom = keyboard.nextInt();
@@ -272,26 +323,33 @@ public class BookManagementSystem {
 		}
 	}
 
+	/**
+	 * This method save all the array back into text file
+	 * @throws IOException
+	 */
 	public void saveChanges() throws IOException {
-		FileWriter fw = new FileWriter(FILE_PATH);
-		PrintWriter outputFile = new PrintWriter(fw);
-		outputFile.print("");
+		FileWriter writer  = new FileWriter(FILE_PATH);
+		BufferedWriter buffer = new BufferedWriter(writer);  
+		buffer.write("");
 		for (int i = 0; i < books.size(); i++) {
 			long lastDigitIsbn = books.get(i).getIsbn() % 10;
 			if (lastDigitIsbn == 0 || lastDigitIsbn == 1) {
-				outputFile.println(((ChildrensBook) books.get(i)).toFile());
+				buffer.write(((ChildrensBook) books.get(i)).toFile());
+				buffer.newLine();
 			} else if (lastDigitIsbn == 2 || lastDigitIsbn == 3) {
-				outputFile.println(((CookBook) books.get(i)).toFile());
+				buffer.write(((CookBook) books.get(i)).toFile());
+				buffer.newLine();
 			} else if (lastDigitIsbn == 4 || lastDigitIsbn == 7) {
-				outputFile.println(((PaperBack) books.get(i)).toFile());
+				buffer.write(((PaperBack) books.get(i)).toFile());
+				buffer.newLine();
 			} else if (lastDigitIsbn == 8 || lastDigitIsbn == 9) {
-				outputFile.println(((Periodical) books.get(i)).toFile());
+				buffer.write(((Periodical) books.get(i)).toFile());
+				buffer.newLine();
 			}
 		}
-		outputFile.close();
+		buffer.close();
 		System.out.println("Saving book list...");
 		System.out.println("Have a good day!");
-
 	}
 
 }

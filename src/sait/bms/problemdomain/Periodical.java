@@ -1,12 +1,30 @@
 package sait.bms.problemdomain;
 
+/**
+ * Represent a periodical book, is the Subclass of Super class Book
+ * @author Nam Khanh Nguyen
+ * @version 1.0
+ * @since 2020-06-11
+ */
 public class Periodical extends Book {
 
+	/**
+	 * This is the frequency of book
+	 */
 	private char frequency;
 
 	public Periodical() {
 	}
-
+	
+	/**
+	 * This is the children constructor which takes in all of the respective info
+	 * @param isbn is the Movie's isbn
+	 * @param callNumber is the Movie's callNumber
+	 * @param available is the Movie's available
+	 * @param total is the Movie's total
+	 * @param title is the Movie's title
+	 * @param frequency is the Movie's frequency
+	 */
 	public Periodical(long isbn, String callNumber, int available, int total, String title, char frequency) {
 		super(isbn, callNumber, available, total, title);
 		this.frequency = frequency;
@@ -26,6 +44,10 @@ public class Periodical extends Book {
 		this.frequency = frequency;
 	}
 
+	/**
+	 * The toString method return content of periodical book to show for user 
+	 * @return the formated String
+	 */
 	@Override
 	public String toString() {
 		String frequencyFull = null;
@@ -45,6 +67,10 @@ public class Periodical extends Book {
 				getTitle(), "Frequency:", frequencyFull);
 	}
 
+	/**
+	 * The toString method return content of book to upload back to file
+	 * @return the formated String
+	 */
 	public String toFile() {
 		return getIsbn() + ";" + getCallNumber() + ";" + getAvailable() + ";" + getTotal() + ";" + getTitle() + ";"
 				+ frequency;

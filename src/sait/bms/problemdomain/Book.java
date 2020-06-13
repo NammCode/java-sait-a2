@@ -1,16 +1,49 @@
 package sait.bms.problemdomain;
 
+/**
+ * Represent a book, which take from text file
+ * @author Nam Khanh Nguyen
+ * @version 1.0
+ * @since 2020-06-11
+ */
 public class Book {
 
+	/**
+	 * This is the isbn of book
+	 */
 	private long isbn; 
+	
+	/**
+	 * This is call Number of book
+	 */
 	private String callNumber;
+	
+	/**
+	 * This is the number of book which is avaiable
+	 */
 	private int available;
+	
+	/**
+	 * The total number of book
+	 */
 	private int total;
+	
+	/**
+	 * The title of book
+	 */
 	private String title;
 	
 	public Book() {
 	}
 
+	/**
+	 * This is the book's constructor which takes in all of the respective info
+	 * @param isbn is the Movie's isbn
+	 * @param callNumber is the Movie's callNumber
+	 * @param available is the Movie's available
+	 * @param total is the Movie's total
+	 * @param title is the Movie's title
+	 */
 	public Book(long isbn, String callNumber, int available, int total, String title) {
 		this.isbn = isbn;
 		this.callNumber = callNumber;
@@ -89,6 +122,10 @@ public class Book {
 		this.title = title;
 	}
 
+	/**
+	 * The toString method return content of book to show for user 
+	 * @return the formated String
+	 */
 	@Override
 	public String toString() {
 		return String.format("%-17s%d\n%-17s%s\n%-17s%d\n%-17s%d\n%-17s%s\n", "ISBN:", getIsbn(),

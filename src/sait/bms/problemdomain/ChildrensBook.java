@@ -1,13 +1,35 @@
 package sait.bms.problemdomain;
 
+/**
+ * Represent a children book, is the Subclass of Super class Book
+ * @author Nam Khanh Nguyen
+ * @version 1.0
+ * @since 2020-06-11
+ */
 public class ChildrensBook extends Book {
 
+	/**
+	 * This is the authors of book
+	 */
 	private String authors;
+	
+	/**
+	 * This is the format of book
+	 */
 	private char format;
 
 	public ChildrensBook() {
 	}
 
+	/**
+	 * This is the children constructor which takes in all of the respective info
+	 * @param isbn is the Movie's isbn
+	 * @param callNumber is the Movie's callNumber
+	 * @param available is the Movie's available
+	 * @param total is the Movie's total
+	 * @param title is the Movie's title
+	 * @param authors is the Movie's authors
+	 */
 	public ChildrensBook(long isbn, String callNumber, int available, int total, String title, String authors,
 			char format) {
 		super(isbn, callNumber, available, total, title);
@@ -43,6 +65,10 @@ public class ChildrensBook extends Book {
 		this.format = format;
 	}
 
+	/**
+	 * The toString method return content of children book to show for user 
+	 * @return the formated String
+	 */
 	@Override
 	public String toString() {
 		String formatFull = null;
@@ -58,6 +84,10 @@ public class ChildrensBook extends Book {
 				getTitle(), "Authors:", authors, "Format:", formatFull);
 	}
 
+	/**
+	 * The toString method return content of book to upload back to file
+	 * @return the formated String
+	 */
 	public String toFile() {
 		return getIsbn() + ";" + getCallNumber() + ";" + getAvailable() + ";" + getTotal() + ";" + getTitle() + ";"
 				+ authors + ";" + format;

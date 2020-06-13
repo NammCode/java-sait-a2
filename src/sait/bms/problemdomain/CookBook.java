@@ -1,13 +1,36 @@
 package sait.bms.problemdomain;
 
+/**
+ * Represent a cook book, is the Subclass of Super class Book
+ * @author Nam Khanh Nguyen
+ * @version 1.0
+ * @since 2020-06-11
+ */
 public class CookBook extends Book {
 
+	/**
+	 * This is the publisher of book
+	 */
 	private String publisher;
+	
+	/**
+	 * This is the diet of book
+	 */
 	private char diet;
 
 	public CookBook() {
 	}
 
+	/**
+	 * This is the children constructor which takes in all of the respective info
+	 * @param isbn is the Movie's isbn
+	 * @param callNumber is the Movie's callNumber
+	 * @param available is the Movie's available
+	 * @param total is the Movie's total
+	 * @param title is the Movie's title
+	 * @param publisher is the Movie's publisher
+	 * @param diet is the Movie's diet
+	 */
 	public CookBook(long isbn, String callNumber, int available, int total, String title, String publisher, char diet) {
 		super(isbn, callNumber, available, total, title);
 		this.publisher = publisher;
@@ -42,6 +65,10 @@ public class CookBook extends Book {
 		this.diet = diet;
 	}
 
+	/**
+	 * The toString method return content of cook book to show for user 
+	 * @return the formated String
+	 */
 	@Override
 	public String toString() {
 		String dietFull = null;
@@ -61,6 +88,10 @@ public class CookBook extends Book {
 				getTitle(), "Publisher:", publisher, "Diet:", dietFull);
 	}
 	
+	/**
+	 * The toString method return content of book to upload back to file
+	 * @return the formated String
+	 */
 	public String toFile()  {
 		return getIsbn() + ";" + getCallNumber() + ";" + getAvailable() + ";" + getTotal() + ";" + getTitle() + ";"
 				+ publisher + ";" + diet;
